@@ -1,4 +1,4 @@
-function sumNums(arr: number[][], rowIdx: number): Promise<number> {
+function sumOfARow(arr: number[][], rowIdx: number): Promise<number> {
     return new Promise((resolve, reject) => {
         if(arr.length > rowIdx ) {
             let sum = 0;
@@ -13,8 +13,7 @@ function sumNums(arr: number[][], rowIdx: number): Promise<number> {
     });
 }
 
-
-const array2D_1 = [
+const arr2D = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 9]
@@ -22,8 +21,8 @@ const array2D_1 = [
 
 let rowSumPromises: Promise<number>[] = [];
 
-for(let x = 0; x < array2D_1.length; x++) {
-    rowSumPromises.push(sumNums(array2D_1, x));
+for(let x = 0; x < arr2D.length; x++) {
+    rowSumPromises.push(sumOfARow(arr2D, x));
 }
 
 Promise.all(rowSumPromises)
@@ -35,4 +34,3 @@ Promise.all(rowSumPromises)
         console.log(`Sum = ${sum}`);
     })
     .catch((error) => console.log(`Error Msg: ${error}`));
-    
