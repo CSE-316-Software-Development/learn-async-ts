@@ -1,1 +1,19 @@
 Explain the code execution based on the order of the messages logged in src/quiz/promise-2darray.txt.
+
+The function is invoked and all tasks on the main thread
+are executed first, such as the "sum called" and "returning from sum" logs.
+We see these messages displayed before the "adding" logs because the logs
+inside of the timeout function are stored in an 'event queue' and wait to 
+execute until the main thread is available after all tasks outside of the
+timeout call are executed. That is why we see the logs for both calls of
+the function before we ever see any logic executed from within the timeout
+call.
+
+1 -> function is invoked
+2 -> main thread logic is executed i.e. "sum called"/"return" logs
+3 -> timeout logic is stored in an event queue
+4 -> function is invoked again
+5 -> main thread logic is executed again
+6 -> timeout logic is stored in an event queue again
+7 -> main thread is free and logic from 3/6 is executed
+(There are no 'timeout' logs for the second call because an error is thrown)
